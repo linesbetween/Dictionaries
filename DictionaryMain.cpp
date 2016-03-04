@@ -364,12 +364,13 @@ void searchWord(string word, vector<Entry> dict){
 
 	
 	*/
+
 	//linear search
 	bool found = false;
 	//auto iter = dict.begin();
 	//_Vector_iterator<_Vector_val<_Simple_types<Entry>>> iter = dict.begin(); //auto
 	for(Entry entry :dict){
-		if (strcmp(entry.getWord().c_str(), word.c_str()) == 0){
+		if (strcmp(entry.getWord().c_str(), word.c_str()) == 0 /*entry.getWord().compare(word)==0*/){
 			cout << word << " meaing is: " << entry.getMeaning() << " \n.";
 			found = true;
 		}
@@ -378,10 +379,13 @@ void searchWord(string word, vector<Entry> dict){
 
 	if (found == false)
 		cout << word << " not found.\n";
+	cout << "Press Enter to go back \n";
+		_getch();
 	
 	//std::sort(dict.begin(), dict.end(),sortByWord);
 	//cout << "sorted \n";
 
+		/*
 	//binary search
 	auto begin = dict.begin();
 	auto end = dict.end()-1;
@@ -419,5 +423,5 @@ void searchWord(string word, vector<Entry> dict){
 		cout << word << " not found. \n";
 		_getch();
 	}
-
+	*/
 }
