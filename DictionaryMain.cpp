@@ -93,23 +93,7 @@ int main(){
 			exit(0);
 		}
 		else if (choice1 >=2 && choice1 <=9){ // if choice1 == 2~9
-			/*
-			//TEST
-			string key1, key2;
-			char keyChar[20];
-			cout << "Please enter a word for search \n";
-			cin >> key1;
-			cin >> key2;
-			if (key2 == "") key2 = key1;
-			strcpy_s(keyChar, key2.c_str());
-			searchWord(keyChar, temp);
 			
-			//cin.getline(key, PRE_SIZE+WORD_SIZE, '\n');
-			//searchWord(key, temp);
-
-			displaySample(temp);
-			//END TEST
-			*/
 			choice2 = menu2(choice1);
 			if (choice2 == 8 ){
 				continue;
@@ -139,12 +123,18 @@ int main(){
 			default: cout << "Please select the correct type of word \n"; continue;
 			}
 		}
-		else {
-			cout << "Please entner integer between 1 to 11 \n";
+		else if (choice1 == 0){
 			cout << "Presh Enter to try again.\n";
 			_getch();
 			continue;
 		}
+		else {
+			cout << "Please enter integer between 1~11 \n";
+			cout << "Presh Enter to try again.\n";
+			_getch();
+			continue;
+		}
+		
 	}
 
 	_getch();
@@ -172,15 +162,13 @@ int menu1(){
 		cout << "Please enter your choice: ";
 		
 		cin >> choice1; cin.ignore(100, '\n');
-		//TODO check digit input (letter will crash program)
-		/*
-		if (choice1 < 1 || choice1 > 11){
-			cout << "Please entner integer between 1 to 11 \n";
-			_getch();
-
+		if (cin.fail()){
+			cin.clear();
+			cin.ignore(100, '\n');
+			cout << "Please enter an integer\n";
+			return 0;
 		}
-		*/
-		//retunr 1 - 9 and discard sndDigit
+	
 		 return choice1;
 	
 }
@@ -208,8 +196,14 @@ int menu2(int choice1){
 		cout << "(6) cardinal numbers \n";
 		cout << "(7) all \n";
 		cout << "(8) return to level 1 menu \n";
-		cin>>choice2;
-		cin.ignore(100, '\n');
+		cin >> choice2; cin.ignore(100, '\n');
+		if (cin.fail()){
+			cin.clear();
+			cin.ignore(100, '\n');
+			cout << "Please enter an integer \n";
+			continue;
+		}
+		
 		if (choice2< 1 || choice2 > 8){
 			cout << "Please enter integer between 1 to 8\n";
 			continue;
@@ -235,34 +229,6 @@ bool sortByWord( const Entry &lhs, const Entry &rhs) {
 }
 
 
-vector<Entry> bubbleSort(const vector<Entry> &dict){
-	
-	vector<Entry> sortedDict(dict.size());
-	copy(dict.begin(), dict.end(), sortedDict.begin());
-	for (Entry entry: sortedDict)
-	{
-		for (auto iter = dict.begin(); iter < dict.end(); ++iter)
-		{
-			if (strcmp(iter->getWord().c_str(),(iter+1)->getWord().c_str())>0)
-			{
-				char temp[WORD_SIZE];
-				strcpy_s(temp, (iter + 1)->getWord().c_str());
-				for (int i = 0; i < WORD_SIZE; ++i){
-					(iter + 1)->getWord().at(i) = iter->getWord().at(i);
-					iter->getWord().at(i) = temp[i];
-				}
-				//strncpy_s((iter + 1)->getEntry().word, iter->getEntry().word, WORD_SIZE);
-				//strncpy_s(iter->getEntry().word,temp, WORD_SIZE);
-				//copy(iter->getEntry().word[0], iter->getEntry().word[WORD_SIZE], (iter + 1)->getEntry().word[0]);
-				//copy(temp[0], temp[WORD_SIZE], iter ->getEntry().word[0]);
-			}
-			++iter;
-		}
-	}
-	
-	return sortedDict;
-}
-
 
 void displayDictPart(int dictType, char wordType[]){
 	cout << "you selected dictionary " << dictType << "word type: " << wordType;
@@ -272,19 +238,6 @@ void displayDictPart(int dictType, char wordType[]){
 void displaySample(vector<Entry> dict){
 	
 	vector<Entry> temp; //to hold certain type of words
-
-	/*
-	for (auto iter = std::cbegin(dict); iter != std::cend(dict); ++iter){// walk through dict vector
-		if (strcmp(iter->getEntry().type, "noun") == 0){ //if type = noun
-			//write to temp vector
-			temp.emplace_back(*iter);
-			cout << "push to vector" << iter->getEntry().prefix << " " << iter->getEntry().word << " " << iter->getEntry().type
-				<< " " << iter->getEntry().prefix << " " << iter->getEntry().meaning << endl;
-		}
-		else
-			continue;
-	}
-	*/
 
 	for (Entry entry:dict){// walk through dict vector
 		if (strcmp(entry.getType().c_str(), "noun") == 0){ //if type = noun
@@ -296,8 +249,6 @@ void displaySample(vector<Entry> dict){
 		}
 	}
 
-
-	//std::sort(temp.begin(), temp.end(), sortByWord);	
 
 	for (Entry entry : temp){
 		if (entry.getPrefix().empty()){
@@ -320,7 +271,7 @@ void displayDictAll(int dictCode){
 }
 
 void displayDictAll(vector<Entry> dict){
-	//std::sort(dict.begin(), dict.end(), sortByWord);
+
 	for (Entry entry : dict){
 		if (entry.getPrefix().empty()){
 			cout << setw(25) << entry.getWord() << " " << setw(20) << entry.getType() << " "
@@ -338,37 +289,10 @@ void displayDictAll(vector<Entry> dict){
 
 void searchWord(string word, vector<Entry> dict){
 
-	/*
-	for (int i = 0; i < PRE_SIZE + WORD_SIZE; ++i){
-		if (key[i] == ' '){ // if there is prefix
-			for (int k=0; k < PRE_SIZE + WORD_SIZE - i; ++k){ // delete prefix and move up the rest
-				key[k] = key[k + i + 1];
-			}
-			break;
-		}
-
-		key[PRE_SIZE-1] = '\0'; //delete the reserved length for prefix.
-	}
-	*/
-
 	cout << "searching for " << word << endl;
-	/*
-	char* prefix; char* word = ""; // Can't assign char* a, b;
-	prefix = strtok_s(key, " ",&word);
-	cout << "prefix is: " << prefix << " word is: " << word;
-
-	if (word == ""){ // if prefix is null,  
-		word = prefix;
-		prefix = "";
-	}
-
-	
-	*/
 
 	//linear search
 	bool found = false;
-	//auto iter = dict.begin();
-	//_Vector_iterator<_Vector_val<_Simple_types<Entry>>> iter = dict.begin(); //auto
 	for(Entry entry :dict){
 		if (strcmp(entry.getWord().c_str(), word.c_str()) == 0 /*entry.getWord().compare(word)==0*/){
 			cout << word << " meaing is: " << entry.getMeaning() << " \n.";
@@ -382,46 +306,5 @@ void searchWord(string word, vector<Entry> dict){
 	cout << "Press Enter to go back \n";
 		_getch();
 	
-	//std::sort(dict.begin(), dict.end(),sortByWord);
-	//cout << "sorted \n";
-
-		/*
-	//binary search
-	auto begin = dict.begin();
-	auto end = dict.end()-1;
-	auto mid = dict.begin();
-	auto loc = dict.begin();
-	bool flag = false;
-
-	while (begin < end && flag == false)
-	{
-		cout << "searching...\n";
-		mid = begin + (end - begin) / 2;// / size of (*begin)?
-		cout << "begin before: " << begin->getWord() << endl;
-		cout << "mid before: " << mid->getWord() << endl;
-		cout << "end before: " << end->getWord() << endl;		
-		if (strcmp(word.c_str(), mid->getWord().c_str()) == 0)
-		{
-			loc = mid;
-			flag = true;
-		}
-		else if (strcmp(word.c_str(), mid->getWord().c_str())<0)
-			end = mid - 1;
-		else
-			begin = mid + 1; //when key is > array[midpoint]
-
-		cout << "begin after: " << begin->getWord() << endl;
-		cout << "mid after: " << mid->getWord() << endl;
-		cout << "end after: " << end->getWord() << endl;
-	}
-
-	if (flag == true){
-		cout << word << " meaing is: " << loc->getMeaning() << " \n.";
-		_getch();
-	}
-	else{
-		cout << word << " not found. \n";
-		_getch();
-	}
-	*/
+	
 }
