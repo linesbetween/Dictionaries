@@ -1,0 +1,8 @@
+$gehen$to go$verb$
+der$Mann$man$noun$
+das$Ol$oil$noun$
+$kommen$to come$verb$
+$eins$one$cardinal number$
+die$Frau$woman$noun$
+das$Kind$child$noun$
+$zu$to$preposition$
