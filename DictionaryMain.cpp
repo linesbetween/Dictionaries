@@ -40,7 +40,9 @@ int main(){
 
 	for (;;){
 		choice1 = menu1();
-		if (choice1 == 1){
+
+		// choice 1 load
+		if (choice1 == 1){ 
 			dictBin.open("dic1.dat");
 			if (dictBin.fail()){
 				cout << "Convert txt to binary... \n";
@@ -56,90 +58,122 @@ int main(){
 					isLoaded = true;
 				}
 				else
-					cout << "Dictionary is already loaded. \n";			
+					cout << "Dictionary is already loaded. \n";
 			}
 			dictBin.close();
 			/*
 
-			//load dictionaries, check file exis 
+			//load dictionaries, check file exis
 			if (txt2Bin("dictGeEn.txt", "dictGeEn.dat"))
-				loadDictionary("dictGeEn.dat", dictGeEn);
+			loadDictionary("dictGeEn.dat", dictGeEn);
 			if (txt2Bin("dictFrEn.txt", "dicFrEn.dat"))
-				loadDictionary("dicFrEn.dat", dictFrEn);
+			loadDictionary("dicFrEn.dat", dictFrEn);
 			if (txt2Bin("dictLaEn.txt", "dicLaEn.dat"))
-				loadDictionary("dicLaEn.dat", dictLaEn);
+			loadDictionary("dicLaEn.dat", dictLaEn);
 			if (txt2Bin("dicHeEn.txt", "dicHeEn.dat"))
-				loadDictionary("dictHeEn.dat", dictHeEn);
-				*/
+			loadDictionary("dictHeEn.dat", dictHeEn);
+			*/
 			//break, back to main menu
 			cout << "Press Enter to return to main menu \n";
 			_getch();
 			continue;
-		}
-		else if (choice1 == 10){//search
-			cout << "Please enter a word for search \n";
-			string key1;
-			string key2 = "\0";
-			cin >> key1;
-			getline(cin,key2);
-			cout << "key1:" << key1 << ", key2:" << key2<<endl;
-			if (key2 == "\0") key2 = key1;
-			else key2.erase(0, 1);
-			searchWord(key2, temp);
-		}
+
+		}//End of choice 1
+
+
+		// choice 10 search
+		else if (choice1 == 10){
+			if (isLoaded){
+				cout << "Please enter a word for search \n";
+				string key1;
+				string key2 = "\0";
+				cin >> key1;
+				getline(cin, key2);
+				cout << "key1:" << key1 << ", key2:" << key2 << endl;
+				if (key2 == "\0") key2 = key1;
+				else key2.erase(0, 1);
+				searchWord(key2, temp);
+			}
+			else {
+				cout << "Please select 1 to load dictionary first! \n";
+				cout << "Press Enter to go back \n";
+				_getch();
+				continue;
+			}
+		}// End of choice 10 search
+
+		//choice 11 exit
 		else if (choice1 == 11){ //quit
 			system("cls");
 			cout << "See you next time \n";
 			exit(0);
-		}
-		else if (choice1 >=2 && choice1 <=9){ // if choice1 == 2~9
-			
-			choice2 = menu2(choice1);
-			if (choice2 == 8 ){
+		}//End of choice 11 exit
+
+
+		//choice 2- 9 display
+		else if (choice1 >= 2 && choice1 <= 9){ 
+
+			if (isLoaded){
+				choice2 = menu2(choice1);
+				//choice2 = 8, return to main
+				if (choice2 == 8){
+					continue;
+				}
+
+				//choice1 = 2-9 choose dictionary
+				switch (choice1){
+				case 2: dictCode = 1; break;
+				case 3: dictCode = 2; break;
+				case 4: dictCode = 3; break;
+				case 5: dictCode = 4; break;
+				case 6: dictCode = 5; break;
+				case 7: dictCode = 6; break;
+				case 8: dictCode = 7; break;
+				case 9: dictCode = 8; break;
+				default: cout << "Wrong dictionary picked \n"; continue;
+				}
+
+				//choice2= 1-7 choose part or all
+				switch (choice2)
+				{
+				case 1: displaySample(temp);/*displayDictPart(dictCode, "noun");*/ break;
+				case 2: displayDictPart(dictCode, "verb"); break;
+				case 3: displayDictPart(dictCode, "preposition"); break;
+				case 4: displayDictPart(dictCode, "adjective"); break;
+				case 5: displayDictPart(dictCode, "adverb"); break;
+				case 6: displayDictPart(dictCode, "cardinal number"); break;
+				case 7: displayDictAll(temp); break; //TEST
+				default: cout << "Please select the correct type of word \n"; continue;
+				}
+			}
+			else {
+				cout << "Please select 1 in main menu to load dictionary first! \n";
+				cout << "Press Enter to go back \n";
+				_getch();
+				continue;
+			} // End of if(isLoaded)
+
+			}// End of choice 2-9 display
+
+
+		    //choice1 is NOT an integer
+			else if (choice1 == 0){
+				cout << "Presh Enter to try again.\n";
+				_getch();
 				continue;
 			}
 
-			switch (choice1){
-			case 2 : dictCode = 1; break;
-			case 3 : dictCode = 2; break;
-			case 4 : dictCode = 3; break;
-			case 5 : dictCode = 4; break;
-			case 6 : dictCode = 5; break;
-			case 7 : dictCode = 6; break;
-			case 8 : dictCode = 7; break;
-			case 9 : dictCode = 8; break;
-			default: cout << "Wrong dictionary picked \n"; continue;
+			//choice1 is NOT within range
+			else {
+				cout << "Please enter integer between 1~11 \n";
+				cout << "Presh Enter to try again.\n";
+				_getch();
+				continue;
 			}
 
-			switch (choice2)
-			{
-			case 1 : displaySample(temp);/*displayDictPart(dictCode, "noun");*/ break;
-			case 2 : displayDictPart(dictCode, "verb"); break;
-			case 3 : displayDictPart(dictCode, "preposition"); break;
-			case 4 : displayDictPart(dictCode, "adjective"); break;
-			case 5 : displayDictPart(dictCode, "adverb"); break;
-			case 6 : displayDictPart(dictCode, "cardinal number"); break;
-			case 7 : displayDictAll(temp); break; //TEST
-			default: cout << "Please select the correct type of word \n"; continue;
-			}
-		}
-		else if (choice1 == 0){
-			cout << "Presh Enter to try again.\n";
-			_getch();
-			continue;
-		}
-		else {
-			cout << "Please enter integer between 1~11 \n";
-			cout << "Presh Enter to try again.\n";
-			_getch();
-			continue;
-		}
-		
-	}
-
-	_getch();
-	return 0;
-}
+	}// End of for
+	
+}// End of main()
 
 
 
