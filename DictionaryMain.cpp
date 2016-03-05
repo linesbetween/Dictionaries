@@ -26,16 +26,15 @@ void displayDictAll(int dictCode); //
 void displayDictAll(vector<Entry> dict);
 void searchWord(string, vector<Entry>);// search in one dictionary
 
+vector<Entry> temp, dictGeEn, dictFrEn, dictLaEn, dictHeEn;
 
 int main(){
-
-	vector<Entry> temp, dictGeEn, dictFrEn, dictLaEn, dictHeEn;
 
 	int choice1, choice2;
 	char type[TYPE_SIZE], all[] = {'a','l', 'l'};
 	char key[PRE_SIZE + WORD_SIZE];
 	int dictCode;
-	ifstream dictBin;
+	ifstream dictBin, dictBin1, dictBin2, dictBin3, dictBin4;
 	bool isConverted = false, isLoaded = false;
 
 	for (;;){
@@ -44,9 +43,18 @@ int main(){
 		// choice 1 load
 		if (choice1 == 1){ 
 			dictBin.open("dic1.dat");
-			if (dictBin.fail()){
+			dictBin1.open("dictGeEn.dat");
+			dictBin2.open("dictFrEn.dat");
+			dictBin3.open("dictLaEn.dat");
+			dictBin4.open("dictHeEn.dat");
+
+			if (dictBin.fail() || dictBin1.fail() || dictBin2.fail() || dictBin3.fail() || dictBin4.fail()){
 				cout << "Convert txt to binary... \n";
-				isConverted = txt2Bin("dic1.txt", "dic1.dat");
+				txt2Bin("dic1.txt", "dic1.dat");
+				txt2Bin("dictGeEn.txt", "dictGeEn.dat");
+				txt2Bin("dictFrEn.txt", "dictFrEn.dat");
+				txt2Bin("dictLaEn.txt", "dictLaEn.dat");
+				txt2Bin("dictHeEn.txt", "dictHeEn.dat");
 			}
 			else{
 				cout << "Txt already converted to Binary.\n";
@@ -55,24 +63,27 @@ int main(){
 				if (!isLoaded){
 					loadDictionary("dic1.dat", temp);
 					std::sort(temp.begin(), temp.end(), sortByWord);
+					loadDictionary("dictGeEn.dat", dictGeEn);
+					std::sort(dictGeEn.begin(), dictGeEn.end(), sortByWord);
+					loadDictionary("dictFrEn.dat", dictFrEn);
+					std::sort(dictFrEn.begin(), dictFrEn.end(), sortByWord);
+					loadDictionary("dictLaEn.dat", dictLaEn);
+					std::sort(dictLaEn.begin(), dictLaEn.end(), sortByWord);
+					loadDictionary("dictHeEn.dat", dictHeEn);
+					std::sort(dictHeEn.begin(), dictHeEn.end(), sortByWord);
+
 					isLoaded = true;
 				}
+
 				else
-					cout << "Dictionary is already loaded. \n";
+					cout << "Dictionaries are already loaded. \n";
 			}
 			dictBin.close();
-			/*
-
-			//load dictionaries, check file exis
-			if (txt2Bin("dictGeEn.txt", "dictGeEn.dat"))
-			loadDictionary("dictGeEn.dat", dictGeEn);
-			if (txt2Bin("dictFrEn.txt", "dicFrEn.dat"))
-			loadDictionary("dicFrEn.dat", dictFrEn);
-			if (txt2Bin("dictLaEn.txt", "dicLaEn.dat"))
-			loadDictionary("dicLaEn.dat", dictLaEn);
-			if (txt2Bin("dicHeEn.txt", "dicHeEn.dat"))
-			loadDictionary("dictHeEn.dat", dictHeEn);
-			*/
+			dictBin1.close();
+			dictBin2.close();
+			dictBin3.close();
+			dictBin4.close();
+			
 			//break, back to main menu
 			cout << "Press Enter to return to main menu \n";
 			_getch();
@@ -262,6 +273,17 @@ bool sortByWord( const Entry &lhs, const Entry &rhs) {
 		return false;
 }
 
+bool sortByMeaning(const Entry &lhs, const Entry &rhs) {
+
+	string wordL = lhs.getMeaning();
+	string wordR = rhs.getMeaning();
+
+	if (strcmp(wordL.c_str(), wordR.c_str()) < 0)
+		return true;
+	else
+		return false;
+}
+
 
 
 void displayDictPart(int dictType, char wordType[]){
@@ -301,6 +323,30 @@ void displaySample(vector<Entry> dict){
 
 void displayDictAll(int dictCode){
 	cout << "you are printing the whole dictionary of No." << dictCode;
+	vector<Entry> *currentDict = &dictGeEn;
+
+	switch (dictCode){
+	case 1:;
+	case 5: currentDict = &dictGeEn; break;
+	case 2:;
+	case 6: currentDict = &dictFrEn; break;
+	case 3:;
+	case 7: currentDict = &dictLaEn; break;
+	case 4:;
+	case 8: currentDict = &dictHeEn; break;
+	}
+
+
+	for (Entry entry : *currentDict){
+		if (entry.getPrefix().empty()){
+			cout << setw(25) << entry.getWord() << " " << setw(20) << entry.getType() << " "
+				<< setw(20) << entry.getMeaning() << endl;
+		}
+		else{
+			cout << setw(4) << entry.getPrefix() << " " << setw(20) << entry.getWord() << " "
+				<< setw(20) << entry.getType() << " " << setw(20) << entry.getMeaning() << endl;
+		}
+	}
 	_getch();
 }
 

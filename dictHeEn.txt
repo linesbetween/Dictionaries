@@ -1,0 +1,25 @@
+$rachok$adverb(m)$far$
+$panim$noun(f)$face$
+$tapuach$noun(m)$apple$
+$ma'afiah$noun(f)$bakery								
+$ayin$noun(f)$eye$
+$adom$adjective(m)$red$
+$sheleg$noun(m)$snow$
+$ochel$noun(m)$food$
+$bari$adjective(m)$healthy$
+$cham$adjective(m)$hot$
+$yom shlishi$noun(m)$Tuesday$
+$tov$adjective(m)$good$
+$latet$verb$to give$
+$kan$adverb$here$
+$juke$noun(m)$bug$
+$lemala$adverb$up$
+$mitah$noun(f)$bed$
+$kafa'fa$noun(f)$glove$
+$katis ashrei$noun(m)$credit card$
+$zol$adjective(m)$inexpensive$
+$smartoot$noun(m)$rain$
+$sus$noun(m)$horse$
+$matai$adverb$when$
+$chatza'it$noun(f)$kirt$
+$cheshbon$noun(m)$bill$
