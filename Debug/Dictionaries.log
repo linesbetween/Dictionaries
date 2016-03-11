@@ -1,0 +1,17 @@
+﻿Build started 3/11/2016 3:28:13 PM.
+     1>Project "D:\data\course\SP2016\CIT284-AdvC++\Dictionaries\Dictionaries.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt DictionaryMain.cpp
+         DictionaryMain.cpp
+     1>d:\data\course\sp2016\cit284-advc++\dictionaries\txt2bin.h(21): warning C4101: 'end' : unreferenced local variable
+     1>d:\data\course\sp2016\cit284-advc++\dictionaries\entryclass.h(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>d:\data\course\sp2016\cit284-advc++\dictionaries\dictionarymain.cpp(34): warning C4101: 'type' : unreferenced local variable
+     1>d:\data\course\sp2016\cit284-advc++\dictionaries\dictionarymain.cpp(35): warning C4101: 'key' : unreferenced local variable
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\data\course\SP2016\CIT284-AdvC++\Dictionaries\Debug\Dictionaries.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\data\course\SP2016\CIT284-AdvC++\Dictionaries\Debug\Dictionaries.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\data\course\SP2016\CIT284-AdvC++\Dictionaries\Debug\Dictionaries.lib" /MACHINE:X86 Debug\DictionaryMain.obj
+         Dictionaries.vcxproj -> D:\data\course\SP2016\CIT284-AdvC++\Dictionaries\Debug\Dictionaries.exe
+     1>Done Building Project "D:\data\course\SP2016\CIT284-AdvC++\Dictionaries\Dictionaries.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.08

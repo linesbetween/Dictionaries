@@ -1,4 +1,4 @@
-$rachok$adverb(m)$far$
+﻿$rachok$adverb(m)$far$
 $panim$noun(f)$face$
 $tapuach$noun(m)$apple$
 $ma'afiah$noun(f)$bakery								

@@ -1,4 +1,4 @@
-puer$noun(m)$boy$
+﻿puer$noun(m)$boy$
 pistor$noun(m)$baker$
 puella$noun(f)$girl$
 bonus$adjective$good$
