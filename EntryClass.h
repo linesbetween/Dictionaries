@@ -25,6 +25,8 @@ public:
 	string getWord() const { return word; }
 	string getMeaning() const { return meaning; }
 	string getType() const{ return type; }
+
+	void setWord(string w) { word = w; }
 	/*
 	Entry(EntryStruct en){
 

@@ -26,17 +26,22 @@ void loadDictionary(string fileName, std::vector<Entry> &dic){
 		return;
 	}
 
+	int i = 1;
 	while (!binFile.eof()){
 		binFile.read(reinterpret_cast<char *>(&buffer), sizeof(buffer));
+		/*
 		cout << left;
-		cout << setw(4) << buffer.prefix  << setw(20) << buffer.word 
+		cout <<i <<") "<< setw(4) << buffer.prefix  << setw(20) << buffer.word 
 			<< setw(20) << buffer.meaning  << setw(20) << buffer.type << "\n";
+			*/
 		dic.emplace_back(Entry(buffer));
 		auto it = dic.end() - 1;
 		cout
-			<< setw(4) << it->getPrefix() << setw(20) << it->getWord()
+			<< i << ") " << setw(4) << it->getPrefix() << setw(20) << it->getWord()
 			<< setw(20) << it->getMeaning() << setw(20) << it->getType()
-			<< "Added to vecter \n";
+			<< " Added to vecter \n";
+
+		++i;
 	}
 
 

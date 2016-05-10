@@ -1,25 +1,25 @@
-﻿puer$noun(m)$boy$
-pistor$noun(m)$baker$
-puella$noun(f)$girl$
-bonus$adjective$good$
-liber$noun(m)$book$
-schola$noun(f)$school$
-domus$noun(f)$house$
-esse$verb$to be$
-post$preposition$after$
-illa$pronoun$she$
-conclave$noun(n)$room$
-hodie$adverb$today$
-pluvia$noun(f)$rain$
-equus$noun(m)$horse$
-mola$noun(f)$mill$
-ruber$adjective$red$
-nix$noun(f)$snow$
-ire$verb$to go$
-oculus$noun(m)$eye$
-intro$adverb$within$
-femina$noun(f)$woman$
-homunculus$noun(m)$little man$
-malum$noun(n)$apple$
-nam$conjunction$for$
-zelus$noun(m)$zeal$
+﻿$puer$noun(m)$boy$
+$pistor$noun(m)$baker$
+$puella$noun(f)$girl$
+$bonus$adjective$good$
+$liber$noun(m)$book$
+$schola$noun(f)$school$
+$domus$noun(f)$house$
+$esse$verb$to be$
+$post$preposition$after$
+$illa$pronoun$she$
+$conclave$noun(n)$room$
+$hodie$adverb$today$
+$pluvia$noun(f)$rain$
+$equus$noun(m)$horse$
+$mola$noun(f)$mill$
+$ruber$adjective$red$
+$nix$noun(f)$snow$
+$ire$verb$to go$
+$oculus$noun(m)$eye$
+$intro$adverb$within$
+$femina$noun(f)$woman$
+$homunculus$noun(m)$little man$
+$malum$noun(n)$apple$
+$nam$conjunction$for$
+$zelus$noun(m)$zeal$

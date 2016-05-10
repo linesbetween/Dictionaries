@@ -29,22 +29,24 @@ bool txt2Bin (string inName, string outName){
 
 	ofstream outFile(outName, ios::out | ios::binary);
 
+	int i = 1;
 	//char test = inFile.get();
 	while (!inFile.eof()){
 
 		//inFile.putback(test);
 		
 		inFile.getline(prefix, PRE_SIZE,'$');
+		if (prefix[0] == '\0')
+			entryStruct.prefix[0] = '\0';
+		else
+			strncpy_s(entryStruct.prefix, prefix, PRE_SIZE);
 		inFile.getline(word, WORD_SIZE, '$');
 		inFile.getline(meaning, MEANING_SIZE, '$');
 		inFile.getline(type, TYPE_SIZE, '$');
 		
 		inFile.ignore(1000, '\n');
 
-		if (prefix[0] == '\0')
-			entryStruct.prefix[0] = '\0';
-		else
-			strncpy_s(entryStruct.prefix, prefix, PRE_SIZE);
+		
 		//entryStruct.prefix[PRE_SIZE -1] = '\0';
 		strncpy_s(entryStruct.word, word, WORD_SIZE);
 		//entryStruct.word[WORD_SIZE -1] = '\0';
@@ -55,8 +57,9 @@ bool txt2Bin (string inName, string outName){
 
 		outFile.write(reinterpret_cast<char *> (&entryStruct), sizeof(entryStruct));
 
-		cout << "one entry written into bin\n";
+		cout << "entry No."<<i<< " written into bin\n";
 		//test = inFile.get();
+		++i;
 	}
 
 	inFile.close();

@@ -25,6 +25,7 @@ void displaySample(vector<Entry> dict); // display German to English noun;
 void displayDictAll(int dictCode); //
 void displayDictAll(vector<Entry> dict);
 void searchWord(string, vector<Entry>);// search in one dictionary
+vector<Entry> convertGermanSpecial(vector<Entry> original);
 
 vector<Entry> temp, dictGeEn, dictFrEn, dictLaEn, dictHeEn;
 
@@ -42,21 +43,17 @@ int main(){
 
 		// choice 1 load
 		if (choice1 == 1){ 
-			//dictBin.open("dic1.dat");
+			dictBin.open("dic1.dat");
 			dictBin1.open("dictGeEn.dat");
-			//dictBin2.open("dictFrEn.dat");
-			//dictBin3.open("dictLaEn.dat");
-			//dictBin4.open("dictHeEn.dat");
+			dictBin2.open("dictFrEn.dat");
+			dictBin3.open("dictLaEn.dat");
+			dictBin4.open("dictHeEn.dat");
 
-			if (/*dictBin.fail() ||*/ dictBin1.fail()/* || dictBin2.fail() || dictBin3.fail() || dictBin4.fail()*/){
+			if (dictBin.fail() || dictBin1.fail() || dictBin2.fail() || dictBin3.fail() || dictBin4.fail()){
 				cout << "Convert txt to binary... \n";
-				//cout << dictBin.fail() << dictBin1.fail() << dictBin2.fail() << dictBin3.fail() << dictBin4.fail() << endl;
+				cout << dictBin.fail() << dictBin1.fail() << dictBin2.fail() << dictBin3.fail() << dictBin4.fail() << endl;
 				_getch();
-				txt2Bin("dictGeEn.txt", "dictGeEn.dat");
-				dictBin1.close();
-				cout << "dicGeEn converted to bin\n";
-				_getch();
-				/*
+				
 				txt2Bin("dic1.txt", "dic1.dat");
 				dictBin.close();
 				cout << "dic1 converted to bin\n";
@@ -77,29 +74,29 @@ int main(){
 				dictBin4.close();
 				cout << "dicHeEn converted to bin\n";
 				_getch();
-				*/
+				
 				isConverted = true;
 			}
 			else{
-				//dictBin.close();
+				dictBin.close();
 				dictBin1.close();
-				//dictBin2.close();
-				//dictBin3.close();
-				//dictBin4.close();
+				dictBin2.close();
+				dictBin3.close();
+				dictBin4.close();
 				cout << "Txt already converted to Binary.\n";
 				isConverted = true;
 
 				if (!isLoaded){
-					//loadDictionary("dic1.dat", temp);
-					//std::sort(temp.begin(), temp.end(), sortByWord);
+					loadDictionary("dic1.dat", temp);
+					std::sort(temp.begin(), temp.end(), sortByWord);
 					loadDictionary("dictGeEn.dat", dictGeEn);
 					std::sort(dictGeEn.begin(), dictGeEn.end(), sortByWord);
-					//loadDictionary("dictFrEn.dat", dictFrEn);
-					//std::sort(dictFrEn.begin(), dictFrEn.end(), sortByWord);
-					//loadDictionary("dictLaEn.dat", dictLaEn);
-					//std::sort(dictLaEn.begin(), dictLaEn.end(), sortByWord);
-					//loadDictionary("dictHeEn.dat", dictHeEn);
-					//std::sort(dictHeEn.begin(), dictHeEn.end(), sortByWord);
+					loadDictionary("dictFrEn.dat", dictFrEn);
+					std::sort(dictFrEn.begin(), dictFrEn.end(), sortByWord);
+					loadDictionary("dictLaEn.dat", dictLaEn);
+					std::sort(dictLaEn.begin(), dictLaEn.end(), sortByWord);
+					loadDictionary("dictHeEn.dat", dictHeEn);
+					std::sort(dictHeEn.begin(), dictHeEn.end(), sortByWord);
 
 					isLoaded = true;
 				}
@@ -126,6 +123,7 @@ int main(){
 				string key1;
 				string key2 = "\0";
 				cin >> key1;
+				
 				getline(cin, key2);
 				cout << "key1:" << key1 << ", key2:" << key2 << endl;
 				if (key2 == "\0") key2 = key1;
@@ -180,7 +178,7 @@ int main(){
 				case 4: displayDictPart(dictCode, "adjective"); break;
 				case 5: displayDictPart(dictCode, "adverb"); break;
 				case 6: displayDictPart(dictCode, "cardinal number"); break;
-				case 7: displayDictAll(temp); break; //TEST
+				case 7: displayDictAll(dictCode); break; //TEST
 				default: cout << "Please select the correct type of word \n"; continue;
 				}
 			}
@@ -311,7 +309,42 @@ bool sortByMeaning(const Entry &lhs, const Entry &rhs) {
 		return false;
 }
 
+// supposed to convert regular character to special, however, is converting whole word
+vector<Entry> convertGermanSpecial(vector<Entry> *original){
+	vector<Entry> converted;
+	string temp;
+	auto itOri = (*original).begin();
+	for (itOri; itOri < (*original).end();++itOri){
+		
+		converted.emplace_back(*itOri);
 
+		if (itOri->getWord() == "Ol")
+			(converted.end()-1)->setWord(char(153) + "l");
+		else if (itOri->getWord() == "Fraulein"){
+			temp = "Fr" + char(132);
+			temp += "ulein";
+			(converted.end()-1)->setWord(temp);
+		}
+		else if (itOri->getWord() == "Madchen"){
+			temp = "M" + char(132);
+			temp += "dchen";
+			(converted.end()-1)->setWord(temp);
+		}
+		else if (itOri->getWord() == "Tur"){
+			temp = "T" + char(129);
+			temp += "r";
+			(converted.end() -1)->setWord(temp);
+		}
+		else if (itOri->getWord() == "konnen"){
+			temp = "k" + char(148);
+			temp += "nnen";
+			(converted.end()-1)->setWord(temp);
+		}
+		
+	}
+
+	return converted;
+}
 
 void displayDictPart(int dictType, char wordType[]){
 	cout << "you selected dictionary " << dictType << "word type: " << wordType;
@@ -349,12 +382,12 @@ void displaySample(vector<Entry> dict){
 }
 
 void displayDictAll(int dictCode){
-	cout << "you are printing the whole dictionary of No." << dictCode;
-	vector<Entry> *currentDict = &dictGeEn;
+	cout << "you are printing the whole dictionary of No." << dictCode << endl;
+	vector<Entry> *currentDict = &dictGeEn;	
 
 	switch (dictCode){
 	case 1:;
-	case 5: currentDict = &dictGeEn; break;
+	case 5: currentDict = &dictGeEn; break; //std::copy(convertGermanSpecial(&dictGeEn).begin(), convertGermanSpecial(&dictGeEn).end(), currentDict.begin())
 	case 2:;
 	case 6: currentDict = &dictFrEn; break;
 	case 3:;
@@ -363,8 +396,9 @@ void displayDictAll(int dictCode){
 	case 8: currentDict = &dictHeEn; break;
 	}
 
-
-	for (Entry entry : *currentDict){
+	vector<Entry> dictGe(convertGermanSpecial(currentDict));
+	cout << left;
+	for (Entry entry : dictGe/**currentDict*/){
 		if (entry.getPrefix().empty()){
 			cout << setw(25) << entry.getWord() << " " << setw(20) << entry.getType() << " "
 				<< setw(20) << entry.getMeaning() << endl;

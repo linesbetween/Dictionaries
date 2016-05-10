@@ -1,7 +1,7 @@
 ﻿$rachok$adverb(m)$far$
 $panim$noun(f)$face$
 $tapuach$noun(m)$apple$
-$ma'afiah$noun(f)$bakery								
+$ma'afiah$noun(f)$bakery$								
 $ayin$noun(f)$eye$
 $adom$adjective(m)$red$
 $sheleg$noun(m)$snow$
